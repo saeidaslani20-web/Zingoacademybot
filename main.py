@@ -36,7 +36,7 @@ bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 
 
-# --- وضعیت‌های FSM ---
+# --- وضعیت‌های ماشین حالت (FSM) ---
 class AuthStates(StatesGroup):
     waiting_for_role = State()
     entering_name = State()
@@ -60,7 +60,7 @@ class TeacherStates(StatesGroup):
     waiting_for_demo = State()
 
 
-# --- اعتبارسنجی‌ها ---
+# --- توابع اعتبارسنجی ---
 def is_persian_name(text: str) -> bool:
     return bool(re.match(r"^[\u0600-\u06FF\s]+$", text.strip()))
 
@@ -69,7 +69,7 @@ def is_valid_phone(text: str) -> bool:
     return bool(re.match(r"^(09\d{9}|989\d{9})$", cleaned))
 
 
-# --- استارت ---
+# --- هندلر استارت ---
 @dp.message(CommandStart())
 async def cmd_start(message: types.Message, state: FSMContext):
     await state.clear()
@@ -85,7 +85,7 @@ async def cmd_start(message: types.Message, state: FSMContext):
         await message.answer("سلام! به بات آکادمی زبان زینگو خوش آمدید 🌟\nلطفاً نقش خود را انتخاب کنید:", reply_markup=kb.role_selection_keyboard())
 
 
-# --- ثبت نام ---
+# --- احراز هویت و ثبت‌نام ---
 @dp.message(AuthStates.waiting_for_role, F.text.in_(["🎓 زبان‌آموز", "👨‍🏫 متقاضی تدریس / استاد"]))
 async def process_role_selection(message: types.Message, state: FSMContext):
     role = "student" if "زبان‌آموز" in message.text else "teacher"
@@ -130,7 +130,7 @@ async def process_phone_input(message: types.Message, state: FSMContext):
         await message.answer(f"✅ {full_name} عزیز، ثبت‌نام شما کامل شد. از منوی زیر استفاده فرمایید:", reply_markup=kb.student_main_menu())
 
 
-# --- دوره‌ها ---
+# --- منوی دوره‌ها و سرویس رایتینگ ---
 @dp.message(F.text == "📚 مشاهده دوره‌ها و تصحیح رایتینگ")
 async def show_courses_menu(message: types.Message, state: FSMContext):
     await state.clear()
@@ -182,7 +182,7 @@ async def close_menu_cb(callback: types.CallbackQuery):
     await callback.answer()
 
 
-# --- تصحیح رایتینگ ---
+# --- فرآیند تصحیح رایتینگ ---
 @dp.callback_query(F.data == "c_writing")
 async def start_writing_flow(callback: types.CallbackQuery, state: FSMContext):
     await state.clear()
@@ -214,37 +214,48 @@ async def writing_file_received(message: types.Message, state: FSMContext):
     
     admin_caption = (
         f"✍️ **درخواست جدید تصحیح رایتینگ**\n\n"
-        f"👤 نام: {user_namecallback: types.CallbackQuery, state: FSMContext):
-    await state.clear()
-    await state.set_state(WritingStates.waiting_for_receipt)
-    msg = (
-        "✍️ **سرویس تحلیل و تصحیح تخصصی رایتینگ (IELTS / TOEFL)**\n\n"
-        "این سرویس شامل تصحیح گرامر، لغت، ساختار استدلال و نمره‌دهی تفکیکی بر اساس معیارهای استاندارد است.\n\n"
-        "💳 **مرحله اول:** لطفاً ابتدا تصویر **فیش واریزی** خود را ارسال فرمایید:"
+        f"👤 نام: {user_name}\n"
+        f"📱 تلفن: `{phone}`\n"
+        f"🆔 آیدی عددی: `{message.from_user.id}`\n"
+        f"🔗 یوزرنیم: @{message.from_user.username or 'ندارد'}\n"
+        f"📄 نام فایل: {doc_name}"
     )
-    await callback.message.answer(msg, parse_mode="Markdown")
-    await callback.answer()
+    
+    try:
+        await bot.send_photo(chat_id=ADMIN_ID, photo=receipt_id, caption=admin_caption, parse_mode="Markdown")
+        await bot.send_document(chat_id=ADMIN_ID, document=doc_id, caption=f"📄 فایل ارسالی {user_name}")
+    except Exception as e:
+        logging.error(f"Error forwarding writing order: {e}")
+        
+    await message.answer(f"✅ فیش و فایل رایتینگ شما با موفقیت ثبت شد و برای واحد آموزش ارسال گردید. نتیجه بررسی ظرف ۴۸ ساعت ارسال خواهد شد.{SUPPORT_FOOTER}")
+    await state.clear()
 
-@dp.message(WritingStates.waiting_for_receipt, F.photo)
-async def writing_receipt_received(message: types.Message, state: FSMContext):
-    await state.update_data(writing_receipt=message.photo[-1].file_id)
-    await state.set_state(WritingStates.waiting_for_file)
-    await message.answer("✅ فیش واریزی دریافت شد.\n\n📄 **مرحله دوم:** حالا لطفاً فایل رایتینگ خود را به صورت سند (فایل Word یا PDF) ارسال فرمایید:")
 
-@dp.message(WritingStates.waiting_for_file, F.document)
-async def writing_file_received(message: types.Message, state: FSMContext):
+# --- فرآیند تعیین سطح آنلاین (۴۰ سوال) ---
+@dp.message(F.text == "📝 تعیین سطح آنلاین (۴۰ سوال)")
+async def start_quiz_handler(message: types.Message, state: FSMContext):
+    await state.clear()
+    if not QUESTIONS or len(QUESTIONS) == 0:
+        await message.answer("⚠️ بانک سوالات در دسترس نیست. لطفاً با پشتیبانی تماس بگیرید.")
+        return
+    
+    await state.set_state(QuizStates.answering)
+    await state.update_data(current_q=0, score=0)
+    
+    first_q = QUESTIONS[0]
+    await message.answer(
+        f"📝 **سوال ۱ از {len(QUESTIONS)}**:\n\n{first_q['question']}",
+        reply_markup=kb.question_keyboard(first_q['options'], 0),
+        parse_mode="Markdown"
+    )
+
+@dp.callback_query(QuizStates.answering, F.data.startswith("ans_"))
+async def quiz_answer_handler(callback: types.CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    receipt_id = data.get("writing_receipt")
-    doc_id = message.document.file_id
-    doc_name = message.document.file_name or "Writing_Document"
+    current_q = data.get("current_q", 0)
+    score = data.get("score", 0)
     
-    user_info = db.get_user(message.from_user.id)
-    user_name = user_info.get("full_name", message.from_user.full_name) if user_info else message.from_user.full_name
-    phone = user_info.get("phone", "ثبت نشده") if user_info else "ثبت نشده"
-    
-    admin_caption = (
-        f"✍️ **درخواست جدید تصحیح رایتینگ**\n\n"
-        f"👤 نام: {user_namedata.split("_")[1])
+    selected_option = int(callback.data.split("_")[1])
     correct_option = QUESTIONS[current_q]["correct"]
     
     if selected_option == correct_option:
@@ -298,10 +309,9 @@ async def writing_file_received(message: types.Message, state: FSMContext):
 @dp.message(F.text == "🎙 ارسال ویس اسپیکینگ")
 async def voice_start(message: types.Message, state: FSMContext):
     await state.clear()
-    await state.setوتی (ویس) ۱ الی ۲ دقیقه‌ای به زبان انگلیسی شامل معرفی، اهداف یادگیری و موضوع دلخواه خود ارسال بفرمایید:"
-    )
-
-@dp.message(VoiceStates.waiting_for_voice, F.voice | F.audio بفرمایید:"
+    await state.set_state(VoiceStates.waiting_for_voice)
+    await message.answer(
+        "🎙 لطفاً یک فایل صوتی (ویس) ۱ الی ۲ دقیقه‌ای به زبان انگلیسی شامل معرفی، اهداف یادگیری و موضوع دلخواه خود ارسال بفرمایید:"
     )
 
 @dp.message(VoiceStates.waiting_for_voice, F.voice | F.audio)
@@ -328,7 +338,7 @@ async def voice_received(message: types.Message, state: FSMContext):
     await state.clear()
 
 
-# --- فیش واریزی ---
+# --- فیش واریزی عمومی ---
 @dp.message(F.text == "💳 ارسال فیش واریزی")
 async def receipt_start(message: types.Message, state: FSMContext):
     await state.clear()
@@ -336,9 +346,8 @@ async def receipt_start(message: types.Message, state: FSMContext):
     await message.answer("💳 لطفاً تصویر واضح فیش واریزی خود را ارسال فرمایید:")
 
 @dp.message(ReceiptStates.waiting_for_receipt, F.photo)
-async def receipt_received(message: types.Messagephone", "ثبت نشده") if user_info else "ثبت نشده"
-    
-    photo_id = message.photoid)
+async def receipt_received(message: types.Message, state: FSMContext):
+    user_info = db.get_user(message.from_user.id)
     user_name = user_info.get("full_name", message.from_user.full_name) if user_info else message.from_user.full_name
     phone = user_info.get("phone", "ثبت نشده") if user_info else "ثبت نشده"
     
@@ -361,7 +370,7 @@ async def receipt_received(message: types.Messagephone", "ثبت نشده") if u
     await state.clear()
 
 
-# --- پشتیبانی ---
+# --- پشتیبانی و مشاوره ---
 @dp.message(F.text == "📞 پشتیبانی و مشاوره")
 async def support_info(message: types.Message, state: FSMContext):
     await state.clear()
@@ -373,7 +382,7 @@ async def support_info(message: types.Message, state: FSMContext):
     )
 
 
-# --- بخش مدرسین ---
+# --- بخش اساتید و متقاضیان تدریس ---
 @dp.message(F.text == "📄 ارسال رزومه و مدارک")
 async def teacher_resume_start(message: types.Message, state: FSMContext):
     await state.clear()
@@ -413,7 +422,7 @@ async def teacher_demo_received(message: types.Message, state: FSMContext):
     await state.clear()
 
 
-# --- راه‌اندازی ربات ---
+# --- راه‌اندازی و اجرای اصلی ---
 async def main():
     db.init_db()
     logging.info("Database initialized successfully.")
