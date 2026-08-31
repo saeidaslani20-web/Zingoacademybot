@@ -1,85 +1,224 @@
-# questions.py
-
+# بانک ۴۰ سوال استاندارد تعیین سطح CEFR (A1 تا C1)
 QUESTIONS = [
-    # --- A1 (Beginner: Q1 - Q8) ---
-    {"q": "1. She _______ a teacher at the university.", "options": ["am", "is", "are", "be"], "answer": 1, "level": "A1"},
-    {"q": "2. Where _______ they live?", "options": ["does", "do", "are", "is"], "answer": 1, "level": "A1"},
-    {"q": "3. I have two _______ in my bag.", "options": ["book", "a book", "books", "bookes"], "answer": 2, "level": "A1"},
-    {"q": "4. Look at _______ car over there! It's so fast.", "options": ["this", "that", "these", "those"], "answer": 1, "level": "A1"},
-    {"q": "5. We _______ to the cinema on Fridays.", "options": ["go often", "often go", "goes often", "often goes"], "answer": 1, "level": "A1"},
-    {"q": "6. Is there _______ milk left in the fridge?", "options": ["any", "some", "a", "many"], "answer": 0, "level": "A1"},
-    {"q": "7. This is my brother. _______ name is Alex.", "options": ["Her", "His", "Him", "He"], "answer": 1, "level": "A1"},
-    {"q": "8. What time _______ up in the morning?", "options": ["you wake", "do you wake", "are you wake", "wakes you"], "answer": 1, "level": "A1"},
+    # سطح A1 (سوالات ۱ تا ۸)
+    {
+        "question": "1. She _______ from Canada.\n\nالف) is\nب) am\nج) are\nد) be",
+        "options": ["الف) is", "ب) am", "ج) are", "د) be"],
+        "correct": 0
+    },
+    {
+        "question": "2. This is my brother. _______ name is Ali.\n\nالف) Her\nب) His\nج) He\nد) Him",
+        "options": ["الف) Her", "ب) His", "ج) He", "د) Him"],
+        "correct": 1
+    },
+    {
+        "question": "3. They _______ to school by bus every day.\n\nالف) goes\nب) going\nج) go\nد) gone",
+        "options": ["الف) goes", "ب) going", "ج) go", "د) gone"],
+        "correct": 2
+    },
+    {
+        "question": "4. What time _______ you wake up in the morning?\n\nالف) do\nب) does\nج) are\nد) have",
+        "options": ["الف) do", "ب) does", "ج) are", "د) have"],
+        "correct": 0
+    },
+    {
+        "question": "5. There _______ some milk in the fridge.\n\nالف) are\nب) is\nج) have\nد) be",
+        "options": ["الف) are", "ب) is", "ج) have", "د) be"],
+        "correct": 1
+    },
+    {
+        "question": "6. I can't find my keys. Have you seen _______?\n\nالف) they\nب) their\nج) them\nد) it",
+        "options": ["الف) they", "ب) their", "ج) them", "د) it"],
+        "correct": 2
+    },
+    {
+        "question": "7. Yesterday, we _______ a very interesting movie.\n\nالف) watch\nب) watched\nج) watching\nد) watches",
+        "options": ["الف) watch", "ب) watched", "ج) watching", "د) watches"],
+        "correct": 1
+    },
+    {
+        "question": "8. Look at the sky! It _______ rain soon.\n\nالف) is going to\nب) goes to\nج) will to\nد) is",
+        "options": ["الف) is going to", "ب) goes to", "ج) will to", "د) is"],
+        "correct": 0
+    },
 
-    # --- A2 (Elementary: Q9 - Q16) ---
-    {"q": "9. Yesterday, we _______ a very interesting movie.", "options": ["watch", "watched", "have watched", "watching"], "answer": 1, "level": "A2"},
-    {"q": "10. Tehran is _______ than Isfahan.", "options": ["more big", "bigger", "the biggest", "bigness"], "answer": 1, "level": "A2"},
-    {"q": "11. I am going to buy _______ bread from the bakery.", "options": ["a few", "some", "many", "an"], "answer": 1, "level": "A2"},
-    {"q": "12. She was tired because she _______ all day.", "options": ["works", "is working", "worked", "has work"], "answer": 2, "level": "A2"},
-    {"q": "13. What _______ when the phone rang?", "options": ["did you do", "were you doing", "have you done", "are you doing"], "answer": 1, "level": "A2"},
-    {"q": "14. You _______ smoke inside the hospital. It's forbidden.", "options": ["don't have to", "mustn't", "needn't", "should"], "answer": 1, "level": "A2"},
-    {"q": "15. The train leaves _______ 8:30 AM _______ Monday.", "options": ["in / on", "at / on", "on / at", "at / in"], "answer": 1, "level": "A2"},
-    {"q": "16. Have you ever _______ to Canada?", "options": ["went", "go", "been", "gone"], "answer": 2, "level": "A2"},
+    # سطح A2 (سوالات ۹ تا ۱۶)
+    {
+        "question": "9. Tehran is _______ than Shiraz.\n\nالف) more big\nب) bigger\nج) biggest\nد) most big",
+        "options": ["الف) more big", "ب) bigger", "ج) biggest", "د) most big"],
+        "correct": 1
+    },
+    {
+        "question": "10. While I _______ my homework, the phone rang.\n\nالف) did\nب) was doing\nج) have done\nد) do",
+        "options": ["الف) did", "ب) was doing", "ج) have done", "د) do"],
+        "correct": 1
+    },
+    {
+        "question": "11. Have you ever _______ to Italy?\n\nالف) been\nب) gone\nج) went\nد) be",
+        "options": ["الف) been", "ب) gone", "ج) went", "د) be"],
+        "correct": 0
+    },
+    {
+        "question": "12. You _______ smoke in the hospital. It's forbidden.\n\nالف) don't have to\nب) shouldn't\nج) mustn't\nد) needn't",
+        "options": ["الف) don't have to", "ب) shouldn't", "ج) mustn't", "د) needn't"],
+        "correct": 2
+    },
+    {
+        "question": "13. If it rains tomorrow, we _______ at home.\n\nالف) stay\nب) will stay\nج) stayed\nد) would stay",
+        "options": ["الف) stay", "ب) will stay", "ج) stayed", "د) would stay"],
+        "correct": 1
+    },
+    {
+        "question": "14. She is interested _______ learning new languages.\n\nالف) at\nب) on\nج) in\nد) with",
+        "options": ["الف) at", "ب) on", "ج) in", "د) with"],
+        "correct": 2
+    },
+    {
+        "question": "15. We don't have _______ bread left. Can you buy some?\n\nالف) some\nب) many\nج) any\nد) a",
+        "options": ["الف) some", "ب) many", "ج) any", "د) a"],
+        "correct": 2
+    },
+    {
+        "question": "16. He enjoys _______ books in his free time.\n\nالف) read\nب) reading\nج) to read\nد) reads",
+        "options": ["الف) read", "ب) reading", "ج) to read", "د) reads"],
+        "correct": 1
+    },
 
-    # --- B1 (Intermediate: Q17 - Q24) ---
-    {"q": "17. If it rains tomorrow, we _______ the outdoor picnic.", "options": ["cancel", "will cancel", "would cancel", "canceled"], "answer": 1, "level": "B1"},
-    {"q": "18. I have lived in this city _______ 2018.", "options": ["for", "since", "during", "from"], "answer": 1, "level": "B1"},
-    {"q": "19. The new library _______ opened by the mayor yesterday.", "options": ["is", "was", "has been", "had"], "answer": 1, "level": "B1"},
-    {"q": "20. I'm really looking forward _______ you soon.", "options": ["to see", "to seeing", "see", "seeing"], "answer": 1, "level": "B1"},
-    {"q": "21. If I _______ you, I would take that IELTS prep course.", "options": ["am", "was", "were", "would be"], "answer": 2, "level": "B1"},
-    {"q": "22. She told me that she _______ her homework already.", "options": ["finish", "has finished", "had finished", "finishing"], "answer": 2, "level": "B1"},
-    {"q": "23. Despite _______ hard, he couldn't pass the driving test.", "options": ["he tried", "trying", "tried", "to try"], "answer": 1, "level": "B1"},
-    {"q": "24. I don't know _______ key this is.", "options": ["who", "whom", "whose", "which of"], "answer": 2, "level": "B1"},
+    # سطح B1 (سوالات ۱۷ تا ۲۴)
+    {
+        "question": "17. If I _______ more money, I would buy that car.\n\nالف) have\nب) had\nج) would have\nد) will have",
+        "options": ["الف) have", "ب) had", "ج) would have", "د) will have"],
+        "correct": 1
+    },
+    {
+        "question": "18. The bridge _______ built in 1995.\n\nالف) is\nب) was\nج) has been\nد) were",
+        "options": ["الف) is", "ب) was", "ج) has been", "د) were"],
+        "correct": 1
+    },
+    {
+        "question": "19. She asked me where I _______.\n\nالف) live\nب) lived\nج) did live\nد) living",
+        "options": ["الف) live", "ب) lived", "ج) did live", "د) living"],
+        "correct": 1
+    },
+    {
+        "question": "20. I've been living here _______ 2018.\n\nالف) for\nب) since\nج) during\nد) ago",
+        "options": ["الف) for", "ب) since", "ج) during", "د) ago"],
+        "correct": 1
+    },
+    {
+        "question": "21. You used to play tennis, _______ you?\n\nالف) didn't\nب) weren't\nج) haven't\nد) don't",
+        "options": ["الف) didn't", "ب) weren't", "ج) haven't", "د) don't"],
+        "correct": 0
+    },
+    {
+        "question": "22. I'm looking forward to _______ you soon.\n\nالف) see\nب) seeing\nج) saw\nد) seen",
+        "options": ["الف) see", "ب) seeing", "ج) saw", "د) seen"],
+        "correct": 1
+    },
+    {
+        "question": "23. Despite _______ hard, he failed the exam.\n\nالف) study\nب) studied\nج) studying\nد) he studied",
+        "options": ["الف) study", "ب) studied", "ج) studying", "د) he studied"],
+        "correct": 2
+    },
+    {
+        "question": "24. Can you tell me what time the flight _______?\n\nالف) departs\nب) does depart\nج) depart\nد) is departing",
+        "options": ["الف) departs", "ب) does depart", "ج) depart", "د) is departing"],
+        "correct": 0
+    },
 
-    # --- B2 (Upper-Intermediate: Q25 - Q32) ---
-    {"q": "25. If you had studied harder, you _______ the exam.", "options": ["would pass", "would have passed", "passed", "will pass"], "answer": 1, "level": "B2"},
-    {"q": "26. Rarely _______ such a fascinating lecture on linguistics.", "options": ["I have heard", "have I heard", "I heard", "did hear I"], "answer": 1, "level": "B2"},
-    {"q": "27. By this time next year, I _______ my master's degree.", "options": ["will complete", "will have completed", "completed", "am completing"], "answer": 1, "level": "B2"},
-    {"q": "28. You had better _______ your essay before submitting it.", "options": ["to revise", "revise", "revising", "revised"], "answer": 1, "level": "B2"},
-    {"q": "29. He is said _______ the best IELTS instructor in town.", "options": ["to be", "being", "that he is", "was"], "answer": 0, "level": "B2"},
-    {"q": "30. The manager insisted that everyone _______ on time for the meeting.", "options": ["is", "be", "was", "will be"], "answer": 1, "level": "B2"},
-    {"q": "31. Not only _______ the match, but they also broke the record.", "options": ["they won", "did they win", "won they", "they did win"], "answer": 1, "level": "B2"},
-    {"q": "32. It is high time we _______ action regarding climate change.", "options": ["take", "took", "have taken", "taking"], "answer": 1, "level": "B2"},
+    # سطح B2 (سوالات ۲۵ تا ۳۲)
+    {
+        "question": "25. By this time next year, I _______ my degree.\n\nالف) will finish\nب) will have finished\nج) finish\nد) am finishing",
+        "options": ["الف) will finish", "ب) will have finished", "ج) finish", "د) am finishing"],
+        "correct": 1
+    },
+    {
+        "question": "26. If I had studied harder, I _______ the exam.\n\nالف) would pass\nب) will have passed\nج) would have passed\nد) passed",
+        "options": ["الف) would pass", "ب) will have passed", "ج) would have passed", "د) passed"],
+        "correct": 2
+    },
+    {
+        "question": "27. She had her car _______ yesterday.\n\nالف) repair\nب) repaired\nج) repairing\nد) to repair",
+        "options": ["الف) repair", "ب) repaired", "ج) repairing", "د) to repair"],
+        "correct": 1
+    },
+    {
+        "question": "28. You _______ have left your keys at home; I saw them on your desk.\n\nالف) must\nب) can't\nج) might\nد) should",
+        "options": ["الف) must", "ب) can't", "ج) might", "د) should"],
+        "correct": 1
+    },
+    {
+        "question": "29. Not only _______ late, but he also forgot his passport.\n\nالف) he arrived\nب) did he arrive\nج) was he arrived\nد) had he arrived",
+        "options": ["الف) he arrived", "ب) did he arrive", "ج) was he arrived", "د) had he arrived"],
+        "correct": 1
+    },
+    {
+        "question": "30. The manager insisted that everyone _______ on time.\n\nالف) is\nب) be\nج) was\nد) will be",
+        "options": ["الف) is", "ب) be", "ج) was", "د) will be"],
+        "correct": 1
+    },
+    {
+        "question": "31. I'd rather you _______ smoke in here.\n\nالف) don't\nب) didn't\nج) not to\nد) won't",
+        "options": ["الف) don't", "ب) didn't", "ج) not to", "د) won't"],
+        "correct": 1
+    },
+    {
+        "question": "32. The research was _______ by a team of scientists.\n\nالف) carried out\nب) made up\nج) brought about\nد) taken in",
+        "options": ["الف) carried out", "ب) made up", "ج) brought about", "د) taken in"],
+        "correct": 0
+    },
 
-    # --- C1 (Advanced: Q33 - Q40) ---
-    {"q": "33. _______ from a distance, the building looked like a massive fortress.", "options": ["Seeing", "Seen", "Having seen", "To see"], "answer": 1, "level": "C1"},
-    {"q": "34. Under no circumstances _______ leave your luggage unattended.", "options": ["you should", "should you", "must you not", "you must"], "answer": 1, "level": "C1"},
-    {"q": "35. The policy was implemented with a view _______ economic stability.", "options": ["to achieve", "to achieving", "achieving", "achieve"], "answer": 1, "level": "C1"},
-    {"q": "36. Were they _______ the contract, legal repercussions would follow immediately.", "options": ["to breach", "breach", "breached", "breaching"], "answer": 0, "level": "C1"},
-    {"q": "37. He has an uncanny _______ for grasping complex grammatical nuances.", "options": ["aptitude", "attitude", "altitude", "amplitude"], "answer": 0, "level": "C1"},
-    {"q": "38. Much _______ I admire her dedication, I cannot endorse her methodology.", "options": ["as", "like", "although", "despite"], "answer": 0, "level": "C1"},
-    {"q": "39. Had it not been for your timely intervention, the project _______ a disaster.", "options": ["would be", "would have been", "had been", "will be"], "answer": 1, "level": "C1"},
-    {"q": "40. The findings of the research _______ doubt on previous assumptions.", "options": ["cast", "shed", "threw", "spread"], "answer": 0, "level": "C1"}
+    # سطح C1 (سوالات ۳۳ تا ۴۰)
+    {
+        "question": "33. Little _______ that she was about to make history.\n\nالف) did she know\nب) she knew\nج) was she knowing\nد) had she known",
+        "options": ["الف) did she know", "ب) she knew", "ج) was she knowing", "د) had she known"],
+        "correct": 0
+    },
+    {
+        "question": "34. The company's profits increased _______ last quarter.\n\nالف) marginally\nب) exponentially\nج) abruptly\nد) loosely",
+        "options": ["الف) marginally", "ب) exponentially", "ج) abruptly", "د) loosely"],
+        "correct": 1
+    },
+    {
+        "question": "35. _______ had we started the presentation when the power went out.\n\nالف) Hardly\nب) No sooner\nج) Seldom\nد) Barely",
+        "options": ["الف) Hardly", "ب) No sooner", "ج) Seldom", "د) Barely"],
+        "correct": 0
+    },
+    {
+        "question": "36. It is imperative that the proposal _______ submitted by Friday.\n\nالف) is\nب) be\nج) will be\nد) was",
+        "options": ["الف) is", "ب) be", "ج) will be", "د) was"],
+        "correct": 1
+    },
+    {
+        "question": "37. He was reluctant to take on the project, _______ his existing workload.\n\nالف) given\nب) whereas\nج) nonetheless\nد) despite",
+        "options": ["الف) given", "ب) whereas", "ج) nonetheless", "د) despite"],
+        "correct": 0
+    },
+    {
+        "question": "38. Had it not been for your assistance, we _______ the deadline.\n\nالف) would miss\nب) missed\nج) would have missed\nد) had missed",
+        "options": ["الف) would miss", "ب) missed", "ج) would have missed", "د) had missed"],
+        "correct": 2
+    },
+    {
+        "question": "39. Her arguments were so _______ that everyone agreed immediately.\n\nالف) ambiguous\nب) compelling\nج) redundant\nد) fleeting",
+        "options": ["الف) ambiguous", "ب) compelling", "ج) redundant", "د) fleeting"],
+        "correct": 1
+    },
+    {
+        "question": "40. Were they to offer you the position, _______ it?\n\nالف) will you accept\nب) would you accept\nج) do you accept\nد) did you accept",
+        "options": ["الف) will you accept", "ب) would you accept", "ج) do you accept", "د) did you accept"],
+        "correct": 1
+    }
 ]
 
 def calculate_cefr_level(score: int) -> dict:
-    if score <= 8:
-        return {
-            "level": "A1 (Beginner)",
-            "desc": "آشنایی اولیه با ساختارهای پایه",
-            "course": "دوره‌های پایه و ترمیک مبتدی (Cutting Edge Starter/Elementary)"
-        }
-    elif score <= 16:
-        return {
-            "level": "A2 (Elementary / Pre-Intermediate)",
-            "desc": "توانایی برقراری ارتباط در موقعیت‌های روزمره",
-            "course": "دوره‌های عمومی Speak Now و Cutting Edge Pre-Intermediate"
-        }
-    elif score <= 24:
-        return {
-            "level": "B1 (Intermediate)",
-            "desc": "تسلط بر گرامر اصلی و مکالمه در موضوعات مختلف",
-            "course": "دوره آمادگی برای تکنیک‌های آیلتس / Speak Now Level 3-4"
-        }
-    elif score <= 32:
-        return {
-            "level": "B2 (Upper-Intermediate)",
-            "desc": "تسلط بالا، مناسب ورود به دوره‌های فشرده آیلتس و تافل",
-            "course": "دوره تخصصی تکنیک‌های IELTS / TOEFL Zingo"
-        }
+    if score <= 10:
+        return {"level": "A1 (Beginner / مبتدی)", "course": "دوره فاندامنتال و پایه‌ای مکالمه"}
+    elif score <= 18:
+        return {"level": "A2 (Elementary / پیش‌متوسط)", "course": "دوره‌های Speak Now و مکالمه روزمره"}
+    elif score <= 26:
+        return {"level": "B1 (Intermediate / متوسط)", "course": "دوره آمادگی Pre-IELTS / مکالمه پیشرفته"}
+    elif score <= 34:
+        return {"level": "B2 (Upper-Intermediate / فوق‌متوسط)", "course": "دوره‌های جامع تکنیکال IELTS و TOEFL"}
     else:
-        return {
-            "level": "C1 (Advanced)",
-            "desc": "تسلط پیشرفته و آکادمیک بر زبان انگلیسی",
-            "course": "دوره تربیت مدرس Zingo TTC یا دوره‌های Masterclass آیلتس 7.5+"
-        }
+        return {"level": "C1 (Advanced / پیشرفته)", "course": "دوره تربیت مدرس (TTC) / کارگاه‌های پیشرفته رایتینگ و اسپیکینگ آیلتس +8"}
